@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Unity.VisualScripting;
+using UnityEngine;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class DialogueManager : MonoBehaviour
     int pose;
     public int lineNum;
     public bool playerTalking;
+    public int currentLevel;
 
     private void Awake()
     {
@@ -46,6 +48,7 @@ public class DialogueManager : MonoBehaviour
     {
         dialogueData.LoadDialogue(level);
         lineNum = 0;
+        currentLevel = level;
         ShowDialogue();
     }
 
@@ -53,7 +56,11 @@ public class DialogueManager : MonoBehaviour
     void ShowDialogue()
     {
         ParseLine();
-
+        if (dialogue == "")
+        {
+            GameManager.Instance.LoadSceneByIndex(currentLevel);
+            return;
+        }
         dialogView.UpdateDialogueUI(dialogue, characterName);
         dialogView.SetCharacterPosition(position);
 

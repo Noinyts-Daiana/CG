@@ -8,8 +8,27 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance;
+
+    private void Awake()
+    {
+
+          Instance = this;
+        //if (Instance == null)
+        //{
+        //    Instance = this;
+        //    DontDestroyOnLoad(gameObject);
+        //}
+        //else
+        //{
+        //    Destroy(gameObject);
+        //}
+    }
+
+
     public void LoadSceneByIndex(int index)
     {
+        Debug.Log(index);
         SceneManager.LoadScene(index);
     }
 
@@ -19,13 +38,14 @@ public class GameManager : MonoBehaviour
     }
 }
 
+
 public class PlayerData : MonoBehaviour
 {
     private static PlayerData instance;
 
     private int currentLevel;
     private int availableLevel;
-    private int availableHint;
+    private int availableInfo;
     public static PlayerData Instance
     {
         get
@@ -68,14 +88,14 @@ public class PlayerData : MonoBehaviour
         return availableLevel;
     }
 
-    public void SetAvailableHint(int hint)
+    public void ChangeNumbersOfHint()
     {
-        availableHint = hint;
+        availableInfo += 1;
     }
 
     public int GetAvailableHint()
     {
-        return availableHint;
+        return availableInfo;
     }
 }
 
